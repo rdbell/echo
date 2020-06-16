@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github.com/labstack/echo"
 	"github.com/labstack/gommon/random"
+	"github.com/rdbell/echo"
 )
 
 type (

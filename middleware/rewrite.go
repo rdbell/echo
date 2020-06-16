@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/labstack/echo"
+	"github.com/rdbell/echo"
 )
 
 type (

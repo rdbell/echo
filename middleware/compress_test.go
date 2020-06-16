@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/labstack/echo"
+	"github.com/rdbell/echo"
 	"github.com/stretchr/testify/assert"
 )
 
