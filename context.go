@@ -13,6 +13,9 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/html"
 )
 
 type (
@@ -389,7 +392,15 @@ func (c *context) Render(code int, name string, data interface{}) (err error) {
 	if err = c.echo.Renderer.Render(buf, name, data, c); err != nil {
 		return
 	}
-	return c.HTMLBlob(code, buf.Bytes())
+
+	minified := new(bytes.Buffer)
+	m := minify.New()
+	m.AddFunc("text/html", html.Minify)
+	if err = m.Minify("text/html", minified, buf); err != nil {
+		return err
+	}
+
+	return c.HTMLBlob(code, minified.Bytes())
 }
 
 func (c *context) HTML(code int, html string) (err error) {
@@ -597,4 +608,3 @@ func (c *context) Reset(r *http.Request, w http.ResponseWriter) {
 	// NOTE: Don't reset because it has to have length c.echo.maxParam at all times
 	// c.pvalues = nil
 }
-
